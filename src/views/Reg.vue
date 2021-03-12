@@ -22,8 +22,8 @@
                           type="text"
                           name="email"
                           v-model="email"
-                          placeholder="请输入用户名/邮箱"
-                          lay-verify="email"
+                          placeholder="请输入邮箱"
+                          lay-verify="required"
                           autocomplete="off"
                           class="layui-input"
                         />
@@ -34,13 +34,13 @@
                     </validation-provider>
                 </div>
                 <div class="layui-form-item">
-                  <label for="L_username" class="layui-form-label">昵称</label>
-                  <validation-provider :rules="{ regex: /^[0-9]+$/ }" v-slot="{ errors }">
+                  <label for="L_name" class="layui-form-label">昵称</label>
+                  <validation-provider rules="required" v-slot="{ errors }">
                     <div class="layui-input-inline">
                       <input
                         type="text"
-                        name="username"
-                        v-model="username"
+                        name="name"
+                        v-model="name"
                         placeholder="请输入昵称"
                         lay-verify="required"
                         autocomplete="off"
@@ -48,7 +48,7 @@
                       />
                     </div>
                     <div class="layui-form-mid">
-                      <span style="color: #c00">{{  errors[0] }}</span>
+                      <span style="color: #c00">{{ errors[0] }}</span>
                     </div>
                   </validation-provider>
                 </div>
@@ -58,8 +58,8 @@
                    <div class="layui-input-inline">
                       <input
                         type="password"
-                        name="pass"
-                        v-model="pass"
+                        name="password"
+                        v-model="password"
                         placeholder="请输入密码"
                         autocomplete="off"
                         class="layui-input"
@@ -72,12 +72,12 @@
                 </div>
                 <div class="layui-form-item">
                   <label for="L_repass" class="layui-form-label">确认密码</label>
-                  <validation-provider rules="required|is:pass" v-slot="{ errors }">
+                  <validation-provider rules="required" v-slot="{ errors }">
                     <div class="layui-input-inline">
                       <input
                         type="password"
                         name="repass"
-                        v-model="tpass"
+                        v-model="repass"
                         placeholder="请确认密码"
                         lay-verify="required"
                         autocomplete="off"
@@ -148,12 +148,12 @@ export default {
   data () {
     return {
       code: '',
-      email: '',
-      pass: '',
+      username: '',
+      password: '',
       svg: '',
-      tpass: '',
+      repass: '',
       name: '',
-      username: ''
+      email: ''
     }
   },
   components: {

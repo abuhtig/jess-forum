@@ -53,12 +53,12 @@
               <form method="post">
                 <div class="layui-form-item">
                   <label for="L_email" class="layui-form-label">邮箱</label>
-                  <validation-provider rules="required|email" v-slot="{ errors }">
+                  <validation-provider rules="required|username" v-slot="{ errors }">
                     <div class="layui-input-inline">
                       <input
                         type="text"
-                        name="email"
-                        v-model="email"
+                        name="username"
+                        v-model="username"
                         placeholder="请输入用户名/邮箱"
                         autocomplete="off"
                         class="layui-input"
@@ -115,7 +115,7 @@ export default {
   data () {
     return {
       code: '',
-      email: '',
+      username: '',
       svg: ''
     }
   },
