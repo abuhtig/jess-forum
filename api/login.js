@@ -2,7 +2,7 @@ import axios from '../src/util/request'
 
 // 获取密码接口
 const getCode = (sid) => {
-  return axios.get('/getCaptcha', {
+  return axios.get('/public/getCaptcha', {
     params: {
       sid: sid
     }
@@ -16,8 +16,13 @@ const forget = (option) => {
 }
 // 登录接口
 const login = (info) => {
-  return axios.post('/login', {
+  return axios.post('/login/login', {
     ...info
   })
 }
-export { getCode, forget, login }
+const reg = (reginfo) => {
+  return axios.post('/login/reg', {
+    ...reginfo
+  })
+}
+export { getCode, forget, login, reg }

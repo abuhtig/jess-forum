@@ -80,7 +80,4 @@ export default {
 </script>
 
 <style>
-.fly-logo img{
-  width: 40px;
-}
 </style>

@@ -5,8 +5,20 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '',
-    redirect: '/login'
+    path: '/',
+    component: () => import('../views/Home.vue'),
+    children: [
+      {
+        path: '',
+        name: 'index',
+        component: () => import('../views/channels/Index.vue')
+      },
+      {
+        path: '/index/:catalog',
+        name: 'catalog',
+        component: () => import('../views/channels/Template1.vue')
+      }
+    ]
   },
   {
     path: '/login',
@@ -16,7 +28,14 @@ const routes = [
   {
     path: '/reg',
     name: 'Reg',
-    component: () => import('../views/Reg.vue')
+    component: () => import('../views/Reg.vue'),
+    beforeEnter: (to, from, next) => {
+      if (from.name === 'Login') {
+        next()
+      } else {
+        next('/login')
+      }
+    }
   },
   {
     path: '/forget',
@@ -26,7 +45,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  linkExactActiveClass: 'layui-this'
 })
 
 export default router

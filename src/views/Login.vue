@@ -17,7 +17,7 @@
               <form method="post">
                 <div class="layui-form-item">
                   <label for="L_email" class="layui-form-label">用户名</label>
-                    <validation-provider rules="required|username" v-slot="{ errors }">
+                    <validation-provider rules="required|email" v-slot="{ errors }">
                       <div class="layui-input-inline" >
                         <input
                           type="text"
@@ -54,7 +54,7 @@
                 <div class="layui-form-item">
                   <div class="layui-row">
                     <label for="L_vercode" class="layui-form-label">验证码</label>
-                    <validation-provider rules="required|length:4" v-slot="{ errors }">
+                    <validation-provider ref="codefield" rules="required|length:4" v-slot="{ errors }">
                       <div class="layui-input-inline">
                         <input
                           type="text"
@@ -160,7 +160,24 @@ export default {
         sid: this.$store.state.sid
       }).then((res) => {
         if (res.code === 200) {
-          console.log(res)
+          this.username = ''
+          this.password = ''
+          this.code = ''
+          requestAnimationFrame(() => {
+            this.$refs.observer.reset()
+          })
+          this.$alert('登陆成功')
+        } else if (res.code === 401) {
+          this.$refs.codefield.setErrors([res.msg])
+        } else if (res.code === 404) {
+          this.$alert('用户名或密码错误,请检查!')
+        }
+      }).catch((err) => {
+        const data = err.response.data
+        if (data.code === 500) {
+          this.$alert('用户名或密码错误,请检查!')
+        } else {
+          this.$alert('服务器错误')
         }
       })
     }
