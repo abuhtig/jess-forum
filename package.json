@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "qs": "^6.10.1",
     "uuid": "^3.4.0",
     "vee-validate": "^3.4.5",

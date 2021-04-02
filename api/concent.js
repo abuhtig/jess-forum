@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-03-23 21:31:24
+ * @LastEditTime: 2021-03-26 09:09:30
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \my\mkw\api\concent.js
+ */
 import axios from '../src/util/request'
 import qs from 'qs'
 
@@ -15,7 +23,7 @@ const getTips = () => {
 }
 
 const getTop = () => {
-  return axios.get('/public/TopWeek')
+  return axios.get('/public/topWeek')
 }
 
 const getLinks = () => {

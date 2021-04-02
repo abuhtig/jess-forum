@@ -1,9 +1,17 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-23 15:37:12
+ * @LastEditTime: 2021-03-26 10:56:48
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \my\mkw\src\components\Panel.vue
+-->
 <template>
   <div>
 <div class="fly-panel fly-column">
   <div class="layui-container">
     <ul class="layui-clear">
-      <router-link tag="li" to="/" class="layui-hide-xs"><a href="/">首页</a></router-link>
+      <router-link tag="li" to="/" class="layui-hide-xs"><a>首页</a></router-link>
         <router-link v-for="(item,index) in lists" :key='"panel" + index' tag="li" :to="item.path">
           <a href="">
             {{item.name}}

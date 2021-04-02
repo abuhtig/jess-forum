@@ -167,6 +167,7 @@ export default {
             this.$refs.observer.reset()
           })
           this.$alert('登陆成功')
+          this.$router.push('/')
         } else if (res.code === 401) {
           this.$refs.codefield.setErrors([res.msg])
         } else if (res.code === 404) {

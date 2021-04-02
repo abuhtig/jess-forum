@@ -3,19 +3,29 @@
     <div class="fly-panel fly-link">
       <h3 class="fly-panel-title">友情链接</h3>
       <dl class="fly-panel-main">
-        <dd><a href="/" target="_blank">layui</a></dd>
-        <dd><a href="http://layim.layui.com/" target="_blank">WebIM</a></dd>
-        <dd><a href="http://layer.layui.com/" target="_blank">layer</a></dd>
-        <dd><a href="/laydate/" target="_blank">layDate</a></dd>
-        <dd><a href="" class="fly-link">申请友链</a></dd>
+        <dd v-for="(item,index) in lists" :key="'link' + index"><a :href="item.link" target="_blank">{{item.title}}</a></dd>
       </dl>
     </div>
   </div>
 </template>
 
 <script>
+import { getLinks } from '../../../api/concent'
 export default {
-  name: 'links'
+  name: 'links',
+  data () {
+    return {
+      lists: []
+    }
+  },
+  mounted () {
+    getLinks().then((res) => {
+      if (res.code === 200) {
+        this.lists = res.data
+      }
+    })
+  }
+
 }
 </script>
 

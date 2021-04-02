@@ -2,25 +2,9 @@
   <div>
     <div class="fly-panel">
       <h3 class="fly-panel-title">温馨通道</h3>
-        <ul class="fly-panel-main fly-list-static">
+        <ul class="fly-panel-main fly-list-static" v-for="(item,index) in lists" :key="'tips' + index">
           <li>
-            <a href="/jie/4281/" target="_blank">layui 的 GitHub 及 Gitee (码云) 仓库，欢迎Star</a>
-          </li>
-          <li>
-            <a href="/jie/5366/" target="_blank">
-              layui 常见问题的处理和实用干货集锦
-            </a>
-          </li>
-          <li>
-            <a href="/jie/4281/" target="_blank">layui 的 GitHub 及 Gitee (码云) 仓库，欢迎Star</a>
-          </li>
-          <li>
-            <a href="/jie/5366/" target="_blank">
-              layui 常见问题的处理和实用干货集锦
-            </a>
-          </li>
-          <li>
-            <a href="/jie/4281/" target="_blank">layui 的 GitHub 及 Gitee (码云) 仓库，欢迎Star</a>
+            <a :href="item.link" target="_blank">{{item.title}}</a>
           </li>
         </ul>
     </div>
@@ -28,8 +12,21 @@
 </template>
 
 <script>
+import { getTips } from '../../../api/concent'
 export default {
-  name: 'tips'
+  name: 'tips',
+  data () {
+    return {
+      lists: []
+    }
+  },
+  mounted () {
+    getTips().then((res) => {
+      if (res.code === 200) {
+        this.lists = res.data
+      }
+    })
+  }
 }
 </script>
 
