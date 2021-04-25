@@ -19,7 +19,7 @@
           </a>
           <span>{{item.created}}</span>
           <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> {{item.fav}}</span>
-          <span class="layui-badge fly-badge-accept layui-hide-xs" v-show="item.status !== '0'">已结</span>
+          <span class="layui-badge fly-badge-accept layui-hide-xs" v-show="item.status === '1'">已结</span>
           <span class="fly-list-nums">
             <i class="iconfont icon-pinglun1" title="回答"></i>{{item.answer}}
           </span>

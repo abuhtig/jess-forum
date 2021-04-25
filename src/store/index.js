@@ -6,11 +6,29 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     sid: '',
-    isLogin: false
+    isLogin: false,
+    token: '',
+    userInfo: {}
   },
   mutations: {
     setSid (state, value) {
       state.sid = value
+    },
+    setToken (state, value) {
+      state.token = value
+      localStorage.setItem('token', value)
+    },
+    setUserInfo (state, value) {
+      state.userInfo = value
+      localStorage.setItem('userInfo', JSON.stringify(value))
+    },
+    setisLogin (state, value) {
+      state.isLogin = value
+    },
+    setinit (state) {
+      state.token = ''
+      state.userInfo = ''
+      state.isLogin = false
     }
   },
   actions: {

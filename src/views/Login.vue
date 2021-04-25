@@ -160,6 +160,9 @@ export default {
         sid: this.$store.state.sid
       }).then((res) => {
         if (res.code === 200) {
+          this.$store.commit('setUserInfo', res.data)
+          this.$store.commit('setisLogin', true)
+          this.$store.commit('setToken', res.token)
           this.username = ''
           this.password = ''
           this.code = ''
@@ -174,6 +177,7 @@ export default {
           this.$alert('用户名或密码错误,请检查!')
         }
       }).catch((err) => {
+        console.log(err)
         const data = err.response.data
         if (data.code === 500) {
           this.$alert('用户名或密码错误,请检查!')

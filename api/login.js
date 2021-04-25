@@ -10,7 +10,7 @@ const getCode = (sid) => {
 }
 // 找回密码接口
 const forget = (option) => {
-  return axios.post('/forget', {
+  return axios.post('/login/forget', {
     ...option
   })
 }
