@@ -18,7 +18,7 @@ localize('zh_CN', {
     max: '超过最大长度要求',
     length: (field) => `${field}要求长度4位`,
     confirmed: '输入的密码不一致',
-    regex: '格式仅包含中文、英文、数字下、划线'
+    regex: '格式仅包含中文、英文、数字、下划线'
   },
   names: {
     email: '邮箱',
@@ -26,6 +26,7 @@ localize('zh_CN', {
     name: '昵称',
     code: '验证码',
     username: '账号',
-    repass: '确认密码'
+    repass: '确认密码',
+    oldpwd: '旧密码'
   }
 })

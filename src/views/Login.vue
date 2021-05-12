@@ -76,7 +76,7 @@
                   </div>
                 </div>
                 <div class="layui-form-item">
-                  <button class="layui-btn" lay-filter="*" type="button" @click="validate().then(submit)" lay-submit>
+                  <button class="layui-btn" type="button" @click="validate().then(submit)" lay-submit>
                     立即登录
                   </button>
                   <span style="padding-left: 20px">
@@ -160,13 +160,14 @@ export default {
         sid: this.$store.state.sid
       }).then((res) => {
         if (res.code === 200) {
+          res.data.username = this.username
           this.$store.commit('setUserInfo', res.data)
           this.$store.commit('setisLogin', true)
           this.$store.commit('setToken', res.token)
           this.username = ''
           this.password = ''
           this.code = ''
-          requestAnimationFrame(() => {
+          this.$nextTick(() => {
             this.$refs.observer.reset()
           })
           this.$alert('登陆成功')

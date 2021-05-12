@@ -7,17 +7,20 @@
         <a href="javascript:;" @click="isShow" class="fly-link" id="LAY_signinHelp">说明</a>
         <i class="fly-mid"></i>
         <a href="javascript:;" @click="isShow2" class="fly-link" id="LAY_signinTop">活跃榜</a>
-        <span class="fly-signin-days">已连续签到<cite>16</cite>天</span>
+        <span class="fly-signin-days">已连续签到<cite>{{count}}</cite>天</span>
       </div>
       <div class="fly-panel-main fly-signin-main">
-        <button class="layui-btn layui-btn-danger" id="LAY_signin">今日签到</button>
-        <span>可获得<cite>5</cite>飞吻</span>
 
+        <template v-if="!isSign">
+        <button @click="sign" class="layui-btn layui-btn-danger" id="LAY_signin">今日签到</button>
+        <span>可获得<cite>{{favs}}</cite>飞吻</span>
+        </template>
         <!-- 已签到状态 -->
-        <!--
+        <template v-else>
         <button class="layui-btn layui-btn-disabled">今日已签到</button>
-        <span>获得了<cite>20</cite>飞吻</span>
-        -->
+        <span>获得了<cite>{{favs}}</cite>飞吻</span>
+        </template>
+
       </div>
     </div>
     <div class="mask" @click="close" v-show="show">
@@ -90,12 +93,37 @@
 </template>
 
 <script>
+import { userSign } from '../../../api/user'
 export default {
   name: 'sign',
   data () {
     return {
       show: false,
-      show2: false
+      show2: false,
+      isSign: this.$store.state.userInfo.isSign ? this.$store.state.userInfo.isSign : false
+    }
+  },
+  computed: {
+    count () {
+      if (this.$store.state.userInfo !== {} && typeof this.$store.state.userInfo.count !== 'undefined') {
+        return this.$store.state.userInfo.count
+      } else {
+        return 0
+      }
+    },
+    favs () {
+      const count = parseInt(this.count)
+      let result = 0
+      if (count <= 10) {
+        result = 5
+      } else if (count > 10 && count <= 20) {
+        result = 10
+      } else if (count > 20 && count <= 40) {
+        result = 15
+      } else {
+        result = 20
+      }
+      return result
     }
   },
   methods: {
@@ -110,6 +138,24 @@ export default {
     },
     close2 () {
       this.show2 = false
+    },
+    sign () {
+      if (this.$store.state.isLogin) {
+        userSign().then((res) => {
+          const user = this.$store.state.userInfo
+          if (res.code === 200) {
+            this.isSign = true
+            user.favs = res.favs
+            user.count = res.count
+            user.isSign = true
+            this.$store.commit('setUserInfo', user)
+          } else {
+            this.isSign = false
+          }
+        })
+      } else {
+        this.$alert('请先登陆!')
+      }
     }
   }
 }

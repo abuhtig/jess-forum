@@ -4,6 +4,12 @@ import Store from '../store/index'
 import moment from 'dayjs'
 import jwt from 'jsonwebtoken'
 
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -27,6 +33,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/reset',
+    name: 'Reset',
+    component: () => import('../views/Reset.vue')
+  },
+  {
+    path: '/confirm',
+    name: 'Confirm',
+    component: () => import('../views/Confirm.vue')
   },
   {
     path: '/reg',
@@ -89,13 +105,13 @@ const routes = [
         children: [
           {
             path: '',
-            name: 'Accounts',
-            component: () => import('../components/user/common/Accounts.vue')
-          },
-          {
-            path: 'myinfo',
             name: 'Myinfo',
             component: () => import('../components/user/common/Myinfo.vue')
+          },
+          {
+            path: 'accounts',
+            name: 'Accounts',
+            component: () => import('../components/user/common/Accounts.vue')
           },
           {
             path: 'passwd',
@@ -115,6 +131,14 @@ const routes = [
         component: () => import('../components/user/Others.vue')
       }
     ]
+  },
+  {
+    path: '/404',
+    component: () => import('../views/Nofound.vue')
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 

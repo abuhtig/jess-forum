@@ -1,6 +1,6 @@
 import axios from '../src/util/request'
 
-// 获取密码接口
+// 获取验证码码接口
 const getCode = (sid) => {
   return axios.get('/public/getCaptcha', {
     params: {

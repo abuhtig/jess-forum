@@ -24,13 +24,11 @@
                             name="username"
                             v-model="username"
                             placeholder="请输入邮箱,您唯一的登入名"
-                            lay-verify="required"
-                            autocomplete="off"
                             class="layui-input"
                           />
                         </div>
                         <div class="layui-form-mid">
-                          <span style="color: #c00">{{  errors[0] }}</span>
+                          <span style="color: #c00">{{ errors[0] }}</span>
                         </div>
                       </validation-provider>
                   </div>
@@ -43,8 +41,6 @@
                           name="name"
                           v-model="name"
                           placeholder="请输入昵称"
-                          lay-verify="required"
-                          autocomplete="off"
                           class="layui-input"
                         />
                       </div>
@@ -62,7 +58,6 @@
                           name="password"
                           v-model="password"
                           placeholder="请输入密码,6-16个字符"
-                          autocomplete="off"
                           class="layui-input"
                         />
                       </div>
@@ -80,8 +75,6 @@
                           name="repass"
                           v-model="repass"
                           placeholder="请确认密码"
-                          lay-verify="required"
-                          autocomplete="off"
                           class="layui-input"
                         />
                       </div>
@@ -99,7 +92,6 @@
                           name="code"
                           v-model="code"
                           placeholder="请输入验证码"
-                          autocomplete="off"
                           class="layui-input"
                         />
                       </div>

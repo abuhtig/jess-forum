@@ -8,7 +8,8 @@ export default new Vuex.Store({
     sid: '',
     isLogin: false,
     token: '',
-    userInfo: {}
+    userInfo: {},
+    username: ''
   },
   mutations: {
     setSid (state, value) {

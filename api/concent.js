@@ -30,9 +30,13 @@ const getLinks = () => {
   return axios.get('/public/links')
 }
 
+const uploadImg = (formData) => {
+  return axios.post('/content/upload', formData)
+}
 export {
   getList,
   getTips,
   getTop,
-  getLinks
+  getLinks,
+  uploadImg
 }

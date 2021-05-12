@@ -1,5 +1,7 @@
 import axios from 'axios'
 import errorHandle from './errorHandle'
+import store from '../store/index'
+import pconfig from '../../config/index'
 const CanceToken = axios.CancelToken
 
 class HttpRequest {
@@ -28,6 +30,14 @@ class HttpRequest {
 
   interceptors (instance) {
     instance.interceptors.request.use((config) => {
+      let isPublic = false
+      pconfig.publicPath.map((path) => {
+        isPublic = isPublic || path.test(config.url)
+      })
+      const token = store.state.token
+      if (!isPublic && token) {
+        config.headers.Authorization = 'Bearer ' + token
+      }
       const key = config.url + '&' + config.method
       this.removePending(key, true)
       config.CanceToken = new CanceToken((c) => {

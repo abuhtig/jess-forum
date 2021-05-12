@@ -33,7 +33,7 @@ export default {
         {
           name: '基本设置',
           icon: 'icon-setting',
-          link: 'Accounts',
+          link: 'Myinfo',
           activeClass: 'layui-this'
         },
         {

@@ -53,12 +53,12 @@
           </template>
           <!-- 登入后的状态 -->
           <template v-else>
-            <li class="layui-nav-item" @click="tocen()">
+            <li class="layui-nav-item">
               <a class="fly-nav-avatar" href="javascript:;">
-                <cite class="layui-hide-xs">{{userInfo.name}}</cite>
+                <cite class="layui-hide-xs" @click="tocen('3')">{{userInfo.name}}</cite>
                 <!-- <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i> -->
                 <i class="layui-badge fly-badge-vip layui-hide-xs" v-show="userInfo.isVip !== '0'">VIP</i>
-                <img :src="userInfo.pic">
+                <img :src="userInfo.pic" @click="tocen('3')">
               </a>
               <dl class="layui-nav-child layui-anim layui-anim-downbit">
                 <dd><a href="javascript:;" @click="tocen('1')"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
@@ -86,23 +86,23 @@ export default {
     tocen (val) {
       switch (val) {
         case '1':
-          this.$router.push('/Settings')
+          this.$router.push('Settings')
           break
         case '2':
-          this.$router.push('/Msg')
+          this.$router.push('Msg')
           break
         case '3':
-          this.$router.push('/Center')
+          this.$router.push('Center')
           break
         default:
-          this.$router.push('/Center')
+          this.$router.push('Center')
           break
       }
     },
     logout () {
       localStorage.clear()
       this.$store.commit('setinit')
-      this.$router.push('/')
+      this.$router.push('/', () => {})
     }
   },
   computed: {

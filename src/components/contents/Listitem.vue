@@ -3,7 +3,7 @@
     <ul class="fly-list">
       <li v-for="(item, index) in items" :key="'listitem' + index">
         <a href="user/home.html" class="fly-avatar">
-          <img :src="item.pic ? item.pic : '/img/touxiang.jpeg'" alt="贤心">
+          <img :src="item.pic ? item.pic : '/img/touxiang.jpeg'" alt="头像">
         </a>
         <h2>
           <a class="layui-badge">{{item.catalog}}</a>
