@@ -2,23 +2,23 @@
   <div>
     <ul class="fly-list">
       <li v-for="(item, index) in items" :key="'listitem' + index">
-        <a href="user/home.html" class="fly-avatar">
-          <img :src="item.pic ? item.pic : '/img/touxiang.jpeg'" alt="头像">
+        <a href="javascript:;" @click="router(item._id)" class="fly-avatar">
+          <img :src="item.uid ? item.uid.pic : '/img/touxiang.jpeg'" alt="头像">
         </a>
         <h2>
           <a class="layui-badge">{{item.catalog}}</a>
-          <a href="jie/detail.html">{{item.title}}</a>
+          <a href="javascript:;" @click="router(item._id)">{{item.title}}</a>
         </h2>
         <div class="fly-list-info">
-          <a href="user/home.html" link>
+          <a href="javascript:;" link>
             <cite>{{item.name}}</cite>
             <!--
             <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
             -->
-            <i class="layui-badge fly-badge-vip" v-if="item.isVip !== '0'">{{'VIP' + item.isVip}}</i>
+            <i class="layui-badge fly-badge-vip" v-if="item.isVip === '1' ">{{'VIP'}}</i>
           </a>
-          <span>{{item.created}}</span>
-          <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> {{item.fav}}</span>
+          <span>{{item.created | moment}}</span>
+          <span v-if="item.catalog === '提问'" class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> {{item.fav}}</span>
           <span class="layui-badge fly-badge-accept layui-hide-xs" v-show="item.status === '1'">已结</span>
           <span class="fly-list-nums">
             <i class="iconfont icon-pinglun1" title="回答"></i>{{item.answer}}
@@ -89,6 +89,9 @@ export default {
   methods: {
     more () {
       this.$emit('nextpage')
+    },
+    router (tid) {
+      this.$router.push({ name: 'Detail', params: { tid } })
     }
   }
 }

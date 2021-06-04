@@ -135,37 +135,21 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
-import { getCode, reg } from '../../api/login'
+import CodeMix from '../mixin/code'
+import { reg } from '../../api/login'
 export default {
   name: 'login',
+  mixins: [CodeMix],
   data () {
     return {
-      code: '',
       username: '',
       password: '',
-      svg: '',
       repass: '',
       name: '',
       required: ''
     }
   },
-  components: {
-    ValidationProvider,
-    ValidationObserver
-  },
-  mounted () {
-    this._getCode()
-  },
   methods: {
-    _getCode () {
-      const sid = this.$store.state.sid
-      getCode(sid).then((res) => {
-        if (res.code === 200) {
-          this.svg = res.data
-        }
-      })
-    },
     async submit () {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {
@@ -183,9 +167,6 @@ export default {
           this.password = ''
           this.code = ''
           this.name = ''
-          requestAnimationFrame(() => {
-            this.$refs.observer.reset()
-          })
           this.$alert('注册成功')
           setTimeout(() => {
             this.$router.push('/login')

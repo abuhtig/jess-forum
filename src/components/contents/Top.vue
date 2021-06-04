@@ -26,12 +26,7 @@ export default {
   },
   data () {
     return {
-      lists: [{
-        catalog: '官方',
-        title: '提醒!',
-        text: '打卡,打卡,打卡,打卡,打卡,打卡,打卡,打卡,打卡,打卡,打卡,打卡',
-        answer: 2
-      }]
+      lists: []
     }
   }
 }

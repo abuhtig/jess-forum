@@ -4,8 +4,12 @@ import router from './router'
 import store from './store'
 import './util/veevalidate'
 import Alert from './components/modules/alert/index'
+import filters from './util/filter'
 
 Vue.use(Alert)
+Object.keys(filters).forEach((key) => {
+  Vue.filter(key, filters[key])
+})
 Vue.config.productionTip = false
 new Vue({
   router,

@@ -33,10 +33,28 @@ const getLinks = () => {
 const uploadImg = (formData) => {
   return axios.post('/content/upload', formData)
 }
+
+const addPost = (Data) => {
+  return axios.post('/content/add', Data)
+}
+const uploadWangImg = (formData) => {
+  return axios.post('/content/uploadWang', formData)
+}
+
+const getDetail = (tid) => {
+  return axios.get('/public/content/detail', {
+    params: {
+      tid: tid
+    }
+  })
+}
 export {
   getList,
   getTips,
   getTop,
   getLinks,
-  uploadImg
+  uploadImg,
+  addPost,
+  uploadWangImg,
+  getDetail
 }

@@ -65,21 +65,18 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import CodeMix from '../mixin/code'
 import { setPass } from '../../api/user'
 let obj = {}
 export default {
   name: 'reset',
+  mixins: [CodeMix],
   data () {
     return {
       password: '',
       repass: '',
       required: ''
     }
-  },
-  components: {
-    ValidationProvider,
-    ValidationObserver
   },
   mounted () {
     const queryStr = window.location.href.replace(/.*\?/, '')

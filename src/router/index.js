@@ -45,6 +45,11 @@ const routes = [
     component: () => import('../views/Confirm.vue')
   },
   {
+    path: '/detail/:tid',
+    name: 'Detail',
+    component: () => import('../components/contents/Detail.vue')
+  },
+  {
     path: '/reg',
     name: 'Reg',
     component: () => import('../views/Reg.vue'),
@@ -60,6 +65,11 @@ const routes = [
     path: '/forget',
     name: 'Forget',
     component: () => import('../views/Forget.vue')
+  },
+  {
+    path: '/add',
+    name: 'Add',
+    component: () => import('../components/contents/Add.vue')
   },
   {
     path: '/user/:uid',
@@ -160,6 +170,7 @@ router.beforeEach((to, from, next) => {
       localStorage.clear()
     }
   }
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const isLogin = Store.state.isLogin
     if (isLogin) {
@@ -169,6 +180,14 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next()
+  }
+  if (to.name === 'Add') {
+    const isLogin = Store.state.isLogin
+    if (isLogin) {
+      next()
+    } else {
+      next('/login')
+    }
   }
 })
 

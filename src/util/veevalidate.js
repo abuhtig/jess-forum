@@ -1,5 +1,5 @@
 import { extend, localize } from 'vee-validate'
-import { required, email, min, max, length, confirmed, regex } from 'vee-validate/dist/rules'
+import { required, email, min, max, length, confirmed, regex, is_not } from 'vee-validate/dist/rules'// eslint-disable-line
 import zh from 'vee-validate/dist/locale/zh_CN.json'
 
 extend('email', email)
@@ -9,6 +9,7 @@ extend('length', length)
 extend('confirmed', confirmed)
 extend('max', max)
 extend('regex', regex)
+extend('is_not', is_not)
 localize('zh_CN', {
   messages: {
     ...zh.messages,
@@ -18,7 +19,8 @@ localize('zh_CN', {
     max: '超过最大长度要求',
     length: (field) => `${field}要求长度4位`,
     confirmed: '输入的密码不一致',
-    regex: '格式仅包含中文、英文、数字、下划线'
+    regex: '格式仅包含中文、英文、数字、下划线',
+    is_not: '请选择所在专栏'
   },
   names: {
     email: '邮箱',
@@ -27,6 +29,7 @@ localize('zh_CN', {
     code: '验证码',
     username: '账号',
     repass: '确认密码',
-    oldpwd: '旧密码'
+    oldpwd: '旧密码',
+    title: '标题'
   }
 })

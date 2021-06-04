@@ -74,7 +74,7 @@ $btn-cdark: darken($btn-cancel, 4%);
   top: 0;
   left: 0;
   background:rgba(0, 0, 0, 0.3);
-  z-index: 8888;
+  z-index: 88888;
   overflow: hidden;
 }
 .alert{
@@ -94,6 +94,7 @@ $btn-cdark: darken($btn-cancel, 4%);
   justify-content: center;
   flex-flow: column nowrap;
   align-items: center;
+  z-index: 88888;
 }
 .msg{
   display: flex;

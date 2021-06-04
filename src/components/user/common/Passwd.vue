@@ -63,20 +63,17 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import CodeMix from '../../../mixin/code'
 import { changepw } from '../../../../api/user'
 export default {
   name: 'passwd',
+  mixins: [CodeMix],
   data () {
     return {
       oldpwd: '',
       password: '',
       repass: ''
     }
-  },
-  components: {
-    ValidationProvider,
-    ValidationObserver
   },
   methods: {
     async submit () {
