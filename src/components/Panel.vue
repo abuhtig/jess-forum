@@ -21,8 +21,8 @@
       <template v-if="isLogin">
               <!-- 用户登入后显示 -->
         <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li>
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html#collection">我收藏的贴</a></li>
+        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><router-link :to="{name: 'Myposts'}">我发表的贴</router-link></li>
+        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><router-link :to="{name: 'MyCollection'}">我收藏的贴</router-link></li>
       </template>
     </ul>
 

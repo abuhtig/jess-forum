@@ -3,7 +3,7 @@
     <dl class="fly-panel fly-list-one">
       <dt class="fly-panel-title">本周热议</dt>
       <dd v-for="(item, index) in lists" :key="'week' + index">
-        <a :href="item.link">{{item.title}}</a>
+        <a @click="router(item._id)">{{item.title}}</a>
         <span><i class="iconfont icon-pinglun1"></i>{{item.answer}}</span>
       </dd>
       <!-- 无数据时 -->
@@ -29,6 +29,11 @@ export default {
         this.lists = res.data
       }
     })
+  },
+  methods: {
+    router (tid) {
+      this.$router.push({ name: 'Detail', params: { tid } })
+    }
   }
 }
 </script>

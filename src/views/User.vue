@@ -1,6 +1,6 @@
 <template>
   <div>
-    yonhu
+    <img src="" alt="">
   </div>
 </template>
 

@@ -53,17 +53,22 @@
           </template>
           <!-- 登入后的状态 -->
           <template v-else>
-            <li class="layui-nav-item">
+            <li class="xindex layui-nav-item">
               <a class="fly-nav-avatar" href="javascript:;">
-                <cite class="layui-hide-xs" @click="tocen('3')">{{userInfo.name}}</cite>
-                <!-- <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i> -->
                 <i class="layui-badge fly-badge-vip layui-hide-xs" v-show="userInfo.isVip !== '0'">VIP</i>
-                <img :src="userInfo.pic" @click="tocen('3')">
+                <cite class="layui-hide-xs" @click="tocenter">{{userInfo.name}}</cite>
+                <span v-show="num.msg !== 0" class="layui-badge-dot dotright"></span>
+                <!-- <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i> -->
+                <img :src="userInfo.pic" @click="tocenter">
               </a>
-              <dl class="layui-nav-child layui-anim layui-anim-downbit">
-                <dd><a href="javascript:;" @click="tocen('1')"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                <dd><a href="javascript:;" @click="tocen('2')"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                <dd><a href="javascript:;" @click="tocen('3')"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+              <dl class="layui-nav-child">
+                <dd><router-link to="/settings"><i class="layui-icon">&#xe620;</i>基本设置</router-link></dd>
+                <dd><router-link to="/msg"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</router-link>
+                <span  v-show="num.msg !== 0">
+                  <div class="num">{{num.msg}}</div>
+                </span>
+                </dd>
+                <dd><router-link to="/center"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</router-link></dd>
                 <hr style="margin: 5px 0;">
                 <dd><a href="javascript:;" @click="logout" style="text-align: center;">退出</a></dd>
               </dl>
@@ -76,6 +81,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'login',
   data () {
@@ -83,21 +89,8 @@ export default {
     }
   },
   methods: {
-    tocen (val) {
-      switch (val) {
-        case '1':
-          this.$router.push('Settings')
-          break
-        case '2':
-          this.$router.push('Msg')
-          break
-        case '3':
-          this.$router.push('Center')
-          break
-        default:
-          this.$router.push('Center')
-          break
-      }
+    tocenter () {
+      this.$router.push('/center')
     },
     logout () {
       localStorage.clear()
@@ -105,7 +98,12 @@ export default {
       this.$router.push('/', () => {})
     }
   },
+  watch: {
+  },
   computed: {
+    ...mapState({
+      num: state => state.num
+    }),
     isShow () {
       return this.$store.state.isLogin
     },
@@ -128,5 +126,20 @@ export default {
 
 .layui-nav-item:hover .layui-nav-child{
   display: block;
+}
+
+.dotright {
+  right: 31px;
+}
+.dotright1 {
+  right: -5px;
+}
+
+.num {
+  position:absolute;
+  color:#FF5722;
+  left: 99px;
+  top: -9px;
+  font-size: 14px;
 }
 </style>

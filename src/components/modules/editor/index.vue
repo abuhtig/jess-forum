@@ -15,6 +15,7 @@ export default {
       contData: ''
     }
   },
+  props: ['content'],
   mounted () {
     const editor = new WangEditor('#demo1')
 
@@ -42,6 +43,14 @@ export default {
       // 通过代码获取编辑器内容
       // const data = this.editor.txt.html()
       this.$emit('change', newHtml)
+    }
+  },
+  watch: {
+    newcont (newVal, oldVal) {
+      this.$emit('changecont', newVal)
+    },
+    content (n) {
+      this.editor.txt.html(n)
     }
   }
 }

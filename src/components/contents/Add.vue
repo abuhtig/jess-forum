@@ -24,8 +24,7 @@
                     </validation-provider>
                   </div>
                 </div>
-                <editor @change="add"></editor>
-                <div class="layui-form-item">
+                <div class="layui-form-item zindex">
                  <div class="layui-col-md4">
                     <label class="layui-form-label">所在专栏</label>
                     <validation-provider ref="codefield" rules="is_not:请选择" v-slot="{ errors }">
@@ -70,9 +69,9 @@
                         </dl>
                       </div>
                     </div>
-                    <div class="layui-form-mid layui-word-aux">发表后无法更改飞吻</div>
                   </div>
                 </div>
+                <editor @change="add"></editor>
                 <div class="layui-form-item">
                   <div class="layui-row">
                     <label for="L_vercode" class="layui-form-label">验证码</label>
@@ -189,11 +188,11 @@ export default {
         code: this.code,
         sid: this.$store.state.sid
       }).then((res) => {
-        if (res === 200) {
+        if (res.code === 200) {
+          this.title = ''
+          this.content = ''
+          this.code = ''
           this.$alert('发帖成功!')
-          setTimeout(() => {
-            this.$router.push('index')
-          }, 2000)
         } else {
           this.$alert(res.msg)
         }
@@ -207,5 +206,10 @@ export default {
 .svg {
   position: relative;
   top: -5px;
+}
+
+.zindex {
+  position: relative;
+  z-index: 11000;
 }
 </style>

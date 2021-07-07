@@ -1,5 +1,8 @@
 <template>
-    <div id="demo1"></div>
+<div class="reply">
+    <div id="demo1">
+    </div>
+</div>
 </template>
 
 <script>
@@ -8,16 +11,15 @@
 import WangEditor from 'wangeditor'
 
 export default {
-  props: ['contData'],
+  props: ['content'],
   data () {
     return {
-      editor: null,
+      editor: '',
       newcont: ''
     }
   },
   mounted () {
     const editor = new WangEditor('#demo1')
-
     // 配置 onchange 回调函数，将数据同步到 vue 中
     editor.config.onchange = (newHtml) => {
       this.newcont = newHtml
@@ -27,12 +29,16 @@ export default {
       'emoticon',
       'link'
     ]
+    editor.config.zIndex = 500
     editor.create()
     this.editor = editor
   },
   watch: {
     newcont (newVal, oldVal) {
       this.$emit('changecont', newVal)
+    },
+    content (n) {
+      this.editor.txt.html(n)
     }
   }
 }

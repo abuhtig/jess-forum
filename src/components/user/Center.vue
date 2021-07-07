@@ -20,9 +20,13 @@
         <div class="layui-col-md12">
           <div class="border panel">
             <div class="title">
-              快捷方式
+              基本信息
             </div>
             <div class="content">
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>
             </div>
           </div>
         </div>
@@ -37,6 +41,10 @@ export default {
   name: 'user-center',
   components: {
     sign
+  },
+  data () {
+    return {
+    }
   }
 }
 </script>

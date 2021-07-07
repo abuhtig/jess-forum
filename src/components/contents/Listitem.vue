@@ -7,7 +7,7 @@
         </a>
         <h2>
           <a class="layui-badge">{{item.catalog}}</a>
-          <a href="javascript:;" @click="router(item._id)">{{item.title}}</a>
+          <router-link :to="{name: 'Detail', params: {tid: item._id}}">{{item.title}}</router-link>
         </h2>
         <div class="fly-list-info">
           <a href="javascript:;" link>
@@ -89,9 +89,6 @@ export default {
   methods: {
     more () {
       this.$emit('nextpage')
-    },
-    router (tid) {
-      this.$router.push({ name: 'Detail', params: { tid } })
     }
   }
 }

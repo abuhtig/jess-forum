@@ -1,19 +1,7 @@
-/*
- * @Author: your name
- * @Date: 2021-03-23 21:31:24
- * @LastEditTime: 2021-03-26 09:09:30
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \my\mkw\api\concent.js
- */
 import axios from '../src/util/request'
 import qs from 'qs'
+import store from '../src/store'
 
-/**
- * @description: 读取文章列表接口参数
- * @param {*} options
- * @return {*}
- */
 const getList = (options) => {
   return axios.get('/public/list?' + qs.stringify(options))
 }
@@ -42,11 +30,19 @@ const uploadWangImg = (formData) => {
 }
 
 const getDetail = (tid) => {
-  return axios.get('/public/content/detail', {
-    params: {
-      tid: tid
+  const token = store.state.token
+  let headers = {}
+  if (token !== '') {
+    headers = {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
     }
-  })
+  }
+  return axios.get('/public/content/detail?tid=' + tid, headers)
+}
+const editPost = (Data) => {
+  return axios.post('/content/editpost', Data)
 }
 export {
   getList,
@@ -56,5 +52,6 @@ export {
   uploadImg,
   addPost,
   uploadWangImg,
-  getDetail
+  getDetail,
+  editPost
 }

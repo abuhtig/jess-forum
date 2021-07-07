@@ -47,7 +47,13 @@ const routes = [
   {
     path: '/detail/:tid',
     name: 'Detail',
+    props: true,
     component: () => import('../components/contents/Detail.vue')
+  },
+  {
+    path: '/edit/:tid',
+    name: 'Edit',
+    component: () => import('../components/contents/Edit.vue')
   },
   {
     path: '/reg',
@@ -72,9 +78,8 @@ const routes = [
     component: () => import('../components/contents/Add.vue')
   },
   {
-    path: '/user/:uid',
+    path: '/user',
     name: 'User',
-    props: true,
     component: () => import('../views/User.vue')
   },
   {
@@ -144,7 +149,7 @@ const routes = [
   },
   {
     path: '/404',
-    component: () => import('../views/Nofound.vue')
+    component: () => import('../views/notfound/Nofound.vue')
   },
   {
     path: '*',
@@ -166,6 +171,9 @@ router.beforeEach((to, from, next) => {
       Store.commit('setToken', token)
       Store.commit('setUserInfo', userInfo)
       Store.commit('setisLogin', true)
+      if (!Store.state.ws) {
+        Store.commit('initWebSocket', {})
+      }
     } else {
       localStorage.clear()
     }

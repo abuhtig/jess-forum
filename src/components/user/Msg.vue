@@ -20,12 +20,43 @@
       </ul>
     </div>
   </div>
+  <Page @changeCurrent="handleChange" :total="total"></Page>
 </div>
 </template>
 
 <script>
+import { getMsg } from '../../../api/user'
+import Page from '../modules/paging/index'
 export default {
-  name: 'msg'
+  name: 'msg',
+  components: {
+    Page
+  },
+  data () {
+    return {
+      lists: [],
+      page: 0,
+      total: 0
+    }
+  },
+  methods: {
+    getMsgAll () {
+      getMsg({
+        page: this.page
+      }).then(res => {
+        if (res.code === 200) {
+          console.log('200')
+        }
+      })
+    },
+    handleChange (val) {
+      this.page = val
+      this.getMsgAll()
+    }
+  },
+  mounted () {
+    this.getMsgAll()
+  }
 }
 </script>
 
