@@ -4,22 +4,25 @@ class WebSocketClient {
     const defaultConfig = {
       port: 3001,
       url: '127.0.0.1',
-      protocol: 'ws'
+      protocol: 'ws',
+      timeInterval: 30 * 1000
     }
 
     const finalConfig = { ...defaultConfig, ...config }
-    this.wsc = {}
+    this.ws = {}
     this.url = finalConfig.url
     this.protocol = finalConfig.protocol
     this.port = finalConfig.port
+    this.handle = null
+    this.timeInterval = finalConfig.timeInterval
   }
 
   init () {
-    this.wsc = new WebSocket(`${this.protocol}://${this.url}:${this.port}`)
-    this.wsc.onopen = this.onOpne
-    this.wsc.onmessage = this.onMessage
-    this.wsc.onclose = this.onClose
-    this.wsc.onerror = this.onError
+    this.ws = new WebSocket(`${this.protocol}://${this.url}:${this.port}`)
+    this.ws.onopen = () => this.onOpne()
+    this.ws.onmessage = (msg) => this.onMessage(msg)
+    this.ws.onclose = () => this.onClose()
+    this.ws.onerror = () => this.onError()
   }
 
   send (msg) {
@@ -31,6 +34,7 @@ class WebSocketClient {
       event: 'auth',
       msg: 'Bearer ' + store.state.token
     }))
+    this.checkServer()
   }
 
   onMessage (event) {
@@ -39,6 +43,7 @@ class WebSocketClient {
       case 'noauth':
         break
       case 'heartbeat':
+        this.checkServer()
         this.ws.send(JSON.stringify({
           event: 'heartbeat',
           msg: 'pong'
@@ -57,6 +62,16 @@ class WebSocketClient {
     setTimeout(() => {
       this.init()
     }, 1000)
+  }
+
+  checkServer () {
+    clearTimeout(this.handle)
+    this.handle = setTimeout(() => {
+      this.onClose()
+      setTimeout(() => {
+        this.init()
+      }, 1000)
+    }, this.timeInterval + 1000)
   }
 }
 
