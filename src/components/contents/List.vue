@@ -112,7 +112,7 @@ export default {
           this.tag = ''
           break
         case 2:
-          this.status = ''
+          this.status = '0'
           this.tag = '精华'
           break
         case 3:

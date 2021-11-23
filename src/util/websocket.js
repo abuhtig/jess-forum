@@ -1,9 +1,10 @@
 import store from '../store'
+import configurl from '../../config/index'
 class WebSocketClient {
   constructor (config = {}) {
     const defaultConfig = {
       port: 3001,
-      url: '127.0.0.1',
+      url: configurl.wsconfig.url,
       protocol: 'ws',
       timeInterval: 30 * 1000
     }

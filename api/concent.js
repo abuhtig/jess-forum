@@ -6,6 +6,10 @@ const getList = (options) => {
   return axios.get('/public/list?' + qs.stringify(options))
 }
 
+const getTopList = () => {
+  return axios.get('/public/topList')
+}
+
 const getTips = () => {
   return axios.get('/public/tips')
 }
@@ -46,6 +50,7 @@ const editPost = (Data) => {
 }
 export {
   getList,
+  getTopList,
   getTips,
   getTop,
   getLinks,

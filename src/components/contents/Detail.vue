@@ -15,7 +15,7 @@
             <span class="layui-badge layui-bg-black" v-show="lists.isTop === '1'">置顶</span>
             <span class="layui-badge" :class="tag.class" v-for="(tag, index) in lists.tags" :key="'tag' + index">{{tag.name}}</span>
 
-            <div class="fly-admin-box" v-show="lists.isadmin ? 'true' : 'false'">
+            <div class="fly-admin-box" v-if="lists.isadmin">
               <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
 
               <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
@@ -77,11 +77,9 @@
                     </a>
 
                     <span v-if="item.cuid._id === item.tid.uid">(楼主)</span>
-                    <!--
-                    <span style="color:#5FB878">(管理员)</span>
-                    <span style="color:#FF9E3F">（社区之光）</span>
-                    <span style="color:#999">（该号已被封）</span>
-                    -->
+                    <span style="color:#5FB878" v-show="item.admin">(管理员)</span>
+                    <!-- <span style="color:#FF9E3F" v-show="item.">（社区之光）</span> -->
+                    <span style="color:#999" v-show="item.status === 1">（该号已被封）</span>
                   </div>
 
                   <div class="detail-hits">
@@ -112,7 +110,7 @@
               <li class="fly-none" v-if="comments.length === 0">消灭零回复</li>
             </ul>
 
-            <page
+            <page v-show="total > 9"
               @changeCurrent="handleChange"
               :current="current"
               :total="total"
@@ -278,5 +276,9 @@ export default {
 
 .detail-about {
   height: 52px;
+}
+
+.fly-detail-info span {
+  margin-right: 5px;
 }
 </style>

@@ -78,8 +78,8 @@ export default {
           case 'advise':
             item.catalog = '建议'
             break
-          case 'discuss':
-            item.catalog = '交流'
+          case 'special':
+            item.catalog = '专栏'
             break
         }
       })

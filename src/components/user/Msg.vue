@@ -7,9 +7,9 @@
       <ul class="mine-msg">
         <li v-for="(item, index) in lists" :key="index" data-id="123">
           <blockquote class="layui-elem-quote">
-            <a href="#" target="_blank"><cite>{{item.fuid.name}}</cite></a>回答了您的求解<a target="_blank" href="#"><cite>{{item.title}}</cite></a>
+            <a href="#" target="_blank"><cite>{{item.fuid.name}}</cite></a>回答了您的求解<router-link :to="{name: 'Detail', params: {tid: item._id}}">{{item.title}}</router-link>
           </blockquote>
-          <p><span>{{item.created | moment}}</span><a href="javascript:;" class="layui-btn layui-btn-small layui-btn-danger fly-delete">删除</a></p>
+          <p><span>{{item.created | moment}}</span></p>
         </li>
       </ul>
     </div>

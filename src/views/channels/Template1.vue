@@ -21,7 +21,7 @@ import Links from '../../components/sidebar/Links.vue'
 import Ads from '../../components/sidebar/Ads.vue'
 import List from '../../components/contents/List.vue'
 export default {
-  name: 'template',
+  name: 'template1',
   components: {
     HotList,
     Links,

@@ -72,18 +72,6 @@
                 <td>522</td>
                 <td>5天</td>
               </tr>
-              <tr>
-                <td>111</td>
-                <td>10积分</td>
-              </tr>
-              <tr>
-                <td>1111</td>
-                <td>11</td>
-              </tr>
-              <tr>
-                <td>111</td>
-                <td>20积分</td>
-              </tr>
             </tbody>
           </table>
         </div>

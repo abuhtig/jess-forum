@@ -143,8 +143,8 @@ export default {
           value: 'share'
         },
         {
-          text: '讨论',
-          value: 'discuss'
+          text: '专栏',
+          value: 'special '
         },
         {
           text: '建议',
@@ -183,7 +183,7 @@ export default {
       addPost({
         title: this.title,
         content: this.content,
-        catalog: this.catalogs[this.cataIndex].text,
+        catalog: this.catalogs[this.cataIndex].value,
         fav: this.cataIndex === 1 ? this.favList[this.favIndex] : 0,
         code: this.code,
         sid: this.$store.state.sid

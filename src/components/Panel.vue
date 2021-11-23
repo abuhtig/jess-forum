@@ -1,11 +1,3 @@
-<!--
- * @Author: your name
- * @Date: 2021-03-23 15:37:12
- * @LastEditTime: 2021-03-26 10:56:48
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \my\mkw\src\components\Panel.vue
--->
 <template>
   <div>
 <div class="fly-panel fly-column">
@@ -13,7 +5,7 @@
     <ul class="layui-clear">
       <router-link tag="li" to="/" class="layui-hide-xs"><a>首页</a></router-link>
         <router-link v-for="(item,index) in lists" :key='"panel" + index' tag="li" :to="item.path">
-          <a href="">
+          <a>
             {{item.name}}
             <span class="layui-badge-dot" v-if="item.isNew"></span>
           </a>
@@ -27,7 +19,7 @@
     </ul>
 
     <div class="fly-column-right layui-hide-xs">
-      <span class="fly-search"><i class="layui-icon"></i></span>
+      <span class="fly-search"><i class="layui-icon"></i></span>
       <router-link :to="{name: 'Add'}">
         <button class="layui-btn">发表新帖</button>
       </router-link>
@@ -46,7 +38,7 @@ export default {
         {
           name: '提问',
           path: '/index/ask',
-          isNew: true
+          isNew: false
         },
         {
           name: '分享',
@@ -54,8 +46,8 @@ export default {
           isNew: false
         },
         {
-          name: '讨论',
-          path: '/index/discuss',
+          name: '专栏',
+          path: '/index/special',
           isNew: false
         },
         {
