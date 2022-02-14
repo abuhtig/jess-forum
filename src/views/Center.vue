@@ -4,7 +4,7 @@
       <ul class="layui-nav layui-nav-tree" lay-filter="test">
         <li class="layui-nav-item" v-for="(item, index) in lists" :key="'center' + index">
           <router-link :to="{name: item.link}" :active-class="item.activeClass">
-            <i class="iconfont1" :class="item.icon"></i>
+            <i class="iconfont" :class="item.icon"></i>
             {{item.name}}
           </router-link>
         </li>
@@ -22,17 +22,17 @@ export default {
       lists: [
         {
           name: '我的主页',
-          icon: 'icon-home',
+          icon: 'icon-home_light',
           link: 'User'
         },
         {
           name: '个人中心',
-          icon: 'icon-user',
+          icon: 'icon-geren',
           link: 'center'
         },
         {
           name: '基本设置',
-          icon: 'icon-setting',
+          icon: 'icon-set',
           link: 'Myinfo',
           activeClass: 'layui-this'
         },
@@ -49,7 +49,7 @@ export default {
         },
         {
           name: '其他设置',
-          icon: 'icon-other',
+          icon: 'icon-qita',
           link: 'Others'
         }
       ]
@@ -59,8 +59,7 @@ export default {
 </script>
 
 <style>
-@import "../assets/ico/iconfont.css";
-.iconfont1 {
+.iconfont2 {
   margin-right:10px;
 }
 </style>

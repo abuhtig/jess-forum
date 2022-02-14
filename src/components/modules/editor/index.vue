@@ -29,7 +29,8 @@ export default {
       formData.append('file', resultFiles[0])
       uploadWangImg(formData).then((res) => {
         if (res.code === 200) {
-          const data = config.baseUrl.dev + res.data
+          const data = config.baseUrl + res.data
+          console.log(data)
           insert(data)
         }
       })

@@ -1,67 +1,107 @@
 @font-face {
-  font-family: "iconfont1"; /* Project id 2470874 */
-  src: url('iconfont.woff2?t=1621238676448') format('woff2'),
-       url('iconfont.woff?t=1621238676448') format('woff'),
-       url('iconfont.ttf?t=1621238676448') format('truetype');
+  font-family: "iconfont"; /* Project id 3084859 */
+  src: url('iconfont.woff2?t=1641543899919') format('woff2'),
+       url('iconfont.woff?t=1641543899919') format('woff'),
+       url('iconfont.ttf?t=1641543899919') format('truetype');
 }
 
-.iconfont1 {
-  font-family: "iconfont1" !important;
+.iconfont {
+  font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-smile:before {
-  content: "\e64e";
+.icon-denglu:before {
+  content: "\e656";
 }
 
-.icon-tupian:before {
-  content: "\e661";
+.icon-zhuye:before {
+  content: "\e633";
 }
 
-.icon-Underline:before {
-  content: "\e628";
+.icon-zhuce:before {
+  content: "\e683";
 }
 
-.icon-lianjie:before {
-  content: "\e7cc";
+.icon-tuichu:before {
+  content: "\e612";
 }
 
-.icon-daoru:before {
-  content: "\e691";
+.icon-pinglun:before {
+  content: "\e8b4";
 }
 
-.icon-code:before {
-  content: "\ebdc";
+.icon-touxiang:before {
+  content: "\e6de";
 }
 
-.icon-tubiao-06:before {
-  content: "\e602";
+.icon-ai45:before {
+  content: "\e6a3";
 }
 
-.icon-user:before {
-  content: "\e75f";
+.icon-pinglun1:before {
+  content: "\e60c";
+}
+
+.icon-eye:before {
+  content: "\e78f";
+}
+
+.icon-shipinbofang:before {
+  content: "\e601";
+}
+
+.icon-vynil:before {
+  content: "\e61f";
+}
+
+.icon-balance-full:before {
+  content: "\e87a";
+}
+
+.icon-xiaochengxu:before {
+  content: "\e799";
+}
+
+.icon-yunyingguanli:before {
+  content: "\ebd1";
+}
+
+.icon-bug:before {
+  content: "\e748";
+}
+
+.icon-shujumofang:before {
+  content: "\e600";
+}
+
+.icon-qita:before {
+  content: "\e60b";
+}
+
+.icon-geren:before {
+  content: "\e61c";
+}
+
+.icon-set:before {
+  content: "\e671";
+}
+
+.icon-0201chazhao:before {
+  content: "\e604";
+}
+
+.icon-home_light:before {
+  content: "\e7d4";
 }
 
 .icon-xiaoxi:before {
-  content: "\e68b";
+  content: "\e69a";
 }
 
 .icon-doc:before {
-  content: "\e81e";
-}
-
-.icon-setting:before {
-  content: "\e669";
-}
-
-.icon-other:before {
-  content: "\e637";
-}
-
-.icon-home:before {
-  content: "\e61c";
+  content: "\e6fd";
 }
 

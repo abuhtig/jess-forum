@@ -24,6 +24,7 @@
                     </validation-provider>
                   </div>
                 </div>
+                <editor @change="add"></editor>
                 <div class="layui-form-item zindex">
                  <div class="layui-col-md4">
                     <label class="layui-form-label">所在专栏</label>
@@ -51,7 +52,7 @@
                     </validation-provider>
                   </div>
                   <div class="layui-col-md4" v-if="cataIndex === 1">
-                    <label class="layui-form-label">悬赏飞吻</label>
+                    <label class="layui-form-label">悬赏积分</label>
                     <div class="layui-input-block" @click="isSe">
                       <div class="layui-unselect layui-form-select" :class="{'layui-form-selected': isSelect_fav}">
                         <div class="layui-select-title">
@@ -71,7 +72,14 @@
                     </div>
                   </div>
                 </div>
-                <editor @change="add"></editor>
+                <div>
+                  <label for="L_title" class="layui-form-label label">标签</label>
+                  <div class="tags ">
+                    <div v-for="(item, index) in labels" :key="index">
+                      <div class="tag mt1" :class="{select: isSelect1(index)}" @click="sub(item, index)">{{item.name}}</div>
+                    </div>
+                  </div>
+                </div>
                 <div class="layui-form-item">
                   <div class="layui-row">
                     <label for="L_vercode" class="layui-form-label">验证码</label>
@@ -114,10 +122,11 @@
 <script>
 import Editor from '../modules/editor'
 import CodeMix from '../../mixin/code'
-import { addPost } from '../../../api/concent'
+import { addPost, getLabels } from '../../../api/concent'
 export default {
   name: 'add',
   mounted () {
+    this._getLabels()
   },
   mixins: [CodeMix],
   components: {
@@ -144,19 +153,33 @@ export default {
         },
         {
           text: '专栏',
-          value: 'special '
+          value: 'special'
         },
         {
-          text: '建议',
+          text: '建议/BUG',
           value: 'advise'
+        },
+        {
+          text: '公告',
+          value: 'notice'
         }
       ],
       favList: [20, 30, 40, 60, 80],
       content: '',
-      title: ''
+      title: '',
+      labels: '',
+      tags: [],
+      tagList: []
     }
   },
   methods: {
+    _getLabels () {
+      getLabels().then((res) => {
+        if (res.code === 200) {
+          this.labels = res.data
+        }
+      })
+    },
     chooseCatalog (item, index) {
       this.cataIndex = index
     },
@@ -186,17 +209,36 @@ export default {
         catalog: this.catalogs[this.cataIndex].value,
         fav: this.cataIndex === 1 ? this.favList[this.favIndex] : 0,
         code: this.code,
-        sid: this.$store.state.sid
+        sid: this.$store.state.sid,
+        tags: this.tags
       }).then((res) => {
         if (res.code === 200) {
           this.title = ''
           this.content = ''
           this.code = ''
           this.$alert('发帖成功!')
+          this.$router.push({ name: 'Detail', params: { tid: res.id } })
         } else {
           this.$alert(res.msg)
         }
       })
+    },
+    sub (item, index) {
+      const num = this.tags.indexOf(item)
+      if (num !== -1) {
+        this.tags.splice(num, 1)
+        this.tagList.splice(num, 1)
+      } else {
+        if (this.tags.length > 5) {
+          this.$alert('标签过多,请删减不需要的标签!')
+          return
+        }
+        this.tags.push(item)
+        this.tagList.push(index)
+      }
+    },
+    isSelect1 (index) {
+      return this.tagList.includes(index)
     }
   }
 }
@@ -207,9 +249,28 @@ export default {
   position: relative;
   top: -5px;
 }
-
 .zindex {
   position: relative;
-  z-index: 11000;
+  z-index: 1000;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.select {
+ border-color: #049dda;
+}
+.mt1 {
+  margin-top: 10px;
+}
+.flex1 {
+  flex: 1;
+}
+.label {
+  display: inline;
+  top: 20px;
 }
 </style>

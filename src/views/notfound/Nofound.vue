@@ -1,7 +1,7 @@
 <template>
   <div>
     <a href="/">
-      <img class="img" src="/img/404.jfif" alt="404">
+      <img class="img" src="/img/404.jpg" alt="404">
     </a>
   </div>
 </template>
@@ -15,5 +15,6 @@ export default {
 <style>
 .img{
   width: 100%;
+  height: 100%;
 }
 </style>

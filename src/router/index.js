@@ -48,6 +48,9 @@ const routes = [
     path: '/detail/:tid',
     name: 'Detail',
     props: true,
+    meta: {
+      types: ['get', 'add', 'edit']
+    },
     component: () => import('../components/contents/Detail.vue')
   },
   {

@@ -1,22 +1,24 @@
 <template>
   <div>
-      <div class="fly-panel" style="margin-bottom: 0;">
-        <div class="fly-panel-title fly-filter">
-          <a :class="{'layui-this':status === '' & tag === ''}" @click.prevent="search()">综合</a>
-          <span class="fly-mid"></span>
-          <a :class="{'layui-this':status === '0'}" @click.prevent="search(0)">未结</a>
-          <span class="fly-mid"></span>
-          <a :class="{'layui-this':status === '1'}" @click.prevent="search(1)">已结</a>
-          <span class="fly-mid"></span>
-          <a :class="{'layui-this':status === '' & tag === '精华'}" @click.prevent="search(2)">精华</a>
-          <span class="fly-filter-right layui-hide-xs">
-            <a :class="{'layui-this':sort === 'created'}" @click.prevent="search(3)">按最新</a>
-            <span class="fly-mid"></span>
-            <a :class="{'layui-this':sort === 'answer'}" @click.prevent="search(4)">按热议</a>
-          </span>
-        </div>
-       <listitem :lists="lists" @nextpage="nextPage()"></listitem>
+    <div class="panel">
+      <div class="fly-panel-title fly-filter">
+      <div class="flexList">
+      <router-link tag="li" to="/" class="layui-hide-xs"><a>首页</a></router-link>
+      <router-link v-for="(item,index) in catlogLists" :key='"panel" + index' tag="a" :to="item.path">
+        <a>
+          {{item.name}}
+          <span class="layui-badge-dot" v-if="item.isNew"></span>
+        </a>
+      </router-link>
       </div>
+        <span class="fly-filter-right layui-hide-xs">
+          <a :class="{'layui-this':sort === 'created'}" @click.prevent="option(3)">按最新</a>
+          <span class="fly-mid"></span>
+          <a :class="{'layui-this':sort === 'answer'}" @click.prevent="option(4)">按热议</a>
+        </span>
+      </div>
+      <listitem :lists="lists" @nextpage="nextPage()"></listitem>
+    </div>
   </div>
 </template>
 
@@ -32,8 +34,16 @@ export default {
     current (newval, oldval) {
       this.init()
     },
-    '$route' (newval, oldval) {
-      const catalog = newval.params.catalog
+    '$route' (to, from) {
+      const searchVal = to.query.search
+      const catalog = to.params.catalog
+      const tag = to.query.tags
+      if (typeof tag !== 'undefined' && tag !== '') {
+        this.tag = tag
+      }
+      if (typeof searchVal !== 'undefined' && searchVal !== '') {
+        this.search = searchVal
+      }
       if (typeof catalog !== 'undefined' && catalog !== '') {
         this.catalog = catalog
       }
@@ -47,10 +57,39 @@ export default {
       sort: '',
       page: 0,
       limit: 20,
+      search: '',
       catalog: '',
       current: '',
       isEnd: false,
-      lists: []
+      lists: [],
+      catlogLists: [
+        {
+          name: '提问',
+          path: '/index/ask',
+          isNew: false
+        },
+        {
+          name: '分享',
+          path: '/index/share',
+          isNew: false
+        },
+        {
+          name: '专栏',
+          path: '/index/special',
+          isNew: false
+        },
+        {
+          name: '公告',
+          path: '/index/notice',
+          isNew: false
+        },
+        {
+          name: '建议',
+          path: '/index/advise',
+          isNew: false
+        }
+      ],
+      isLogin: this.$store.state.isLogin
     }
   },
   mounted () {
@@ -74,7 +113,8 @@ export default {
         page: this.page,
         limit: this.limit,
         catalog: this.catalog,
-        isTop: 0
+        search: this.search
+        // isTop: 0
       }
       getList(options).then((res) => {
         if (res.code === 200) {
@@ -97,7 +137,7 @@ export default {
       this.page++
       this._getList()
     },
-    search (val) {
+    option (val) {
       if (typeof val === 'undefined' && this.current === '') {
         return
       }
@@ -135,5 +175,8 @@ export default {
 <style>
 a {
   cursor: pointer;
+}
+.flexList {
+  display: flex;
 }
 </style>

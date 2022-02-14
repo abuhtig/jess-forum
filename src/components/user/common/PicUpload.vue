@@ -36,17 +36,17 @@ export default {
       }
       uploadImg(formData).then((res) => {
         if (res.code === 200) {
-          this.pic = config.baseUrl.dev + res.data
+          this.pic = config.baseUrl + res.data
+          updateUserInfo({ pic: this.pic }).then((res) => {
+            if (res.code === 200) {
+              const user = this.$store.state.userInfo
+              user.pic = this.pic
+              this.$store.commit('setUserInfo', user)
+              this.$alert('更新成功')
+            }
+          })
+          document.getElementById('files').value = ''
         }
-        updateUserInfo({ pic: this.pic }).then((res) => {
-          if (res.code === 200) {
-            const user = this.$store.state.userInfo
-            user.pic = this.pic
-            this.$store.commit('setUserInfo', user)
-            this.$alert('更新成功')
-          }
-        })
-        document.getElementById('files').value = ''
       })
     }
   }
