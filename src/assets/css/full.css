@@ -39,7 +39,7 @@ html .fly-full{margin-top: 0;}
 .nav-message{left: auto; right: 10px;}
 
 /* 适配 */
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
   html body{margin-left: 140px;}
   .main{margin: 15px 10px;}
   .content{margin: 0;}
@@ -50,4 +50,4 @@ html .fly-full{margin-top: 0;}
   html body{margin-left:0;}
   .header{left:-140px;}
   .edge{display: block;}
-}
+} */

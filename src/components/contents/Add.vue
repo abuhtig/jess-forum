@@ -24,7 +24,7 @@
                     </validation-provider>
                   </div>
                 </div>
-                <editor @change="add"></editor>
+                <editor @change="add" @imgUrl="uploadPic"></editor>
                 <div class="layui-form-item zindex">
                  <div class="layui-col-md4">
                     <label class="layui-form-label">所在专栏</label>
@@ -158,10 +158,6 @@ export default {
         {
           text: '建议/BUG',
           value: 'advise'
-        },
-        {
-          text: '公告',
-          value: 'notice'
         }
       ],
       favList: [20, 30, 40, 60, 80],
@@ -169,7 +165,8 @@ export default {
       title: '',
       labels: '',
       tags: [],
-      tagList: []
+      tagList: [],
+      pic: ''
     }
   },
   methods: {
@@ -210,7 +207,8 @@ export default {
         fav: this.cataIndex === 1 ? this.favList[this.favIndex] : 0,
         code: this.code,
         sid: this.$store.state.sid,
-        tags: this.tags
+        tags: this.tags,
+        pic: this.pic
       }).then((res) => {
         if (res.code === 200) {
           this.title = ''
@@ -239,6 +237,9 @@ export default {
     },
     isSelect1 (index) {
       return this.tagList.includes(index)
+    },
+    uploadPic (url) {
+      this.pic = url
     }
   }
 }

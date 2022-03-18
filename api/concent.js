@@ -55,7 +55,18 @@ const getDetail = (tid) => {
   return axios.get('/public/content/detail?tid=' + tid, headers)
 }
 const editPost = (Data) => {
-  return axios.post('/content/editpostbyid', Data)
+  return axios.post('/content/editPost', Data)
+}
+
+const getAdvert = () => {
+  return axios.get('/public/getAdvert')
+}
+
+const getHistory = (data) => {
+  return axios.get('/content/getHistory?' + qs.stringify(data))
+}
+const deleteHistory = (data) => {
+  return axios.get('/content/deleteHistory?' + qs.stringify(data))
 }
 export {
   getList,
@@ -70,5 +81,8 @@ export {
   getDetail,
   editPost,
   editpost,
-  deletePost
+  deletePost,
+  getAdvert,
+  getHistory,
+  deleteHistory
 }

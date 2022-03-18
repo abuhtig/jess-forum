@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <!-- <div class="title">公告</div> -->
+    <div class="title"></div>
   </div>
 </template>
 
@@ -18,8 +18,8 @@ export default {
 
 <style scoped>
 .wrap {
-  position: absolute;
-  top: 30px;
+  padding: 10px;
+  position: relative;
   z-index: 2;
 }
 .title {

@@ -1,5 +1,7 @@
 <template>
-    <div id="demo1"></div>
+    <div id="demo1">
+      <div v-html="content"></div>
+    </div>
 </template>
 
 <script>
@@ -11,11 +13,15 @@ import config from '../../../../config'
 export default {
   data () {
     return {
-      editor: null,
       contData: ''
     }
   },
-  props: ['content'],
+  props: {
+    content: {
+      type: String,
+      default: ''
+    }
+  },
   mounted () {
     const editor = new WangEditor('#demo1')
 
@@ -24,34 +30,29 @@ export default {
       this.contData = newHtml
       this.getEditorData(newHtml)
     }
-    editor.config.customUploadImg = function (resultFiles, insert) {
+    editor.config.customUploadImg = (resultFiles, insert) => {
       const formData = new FormData()
       formData.append('file', resultFiles[0])
       uploadWangImg(formData).then((res) => {
         if (res.code === 200) {
           const data = config.baseUrl + res.data
-          console.log(data)
           insert(data)
+          this.$emit('imgUrl', res.data)
         }
       })
     }
+    editor.config.linkImgCallback = (src, alt, href) => {
+      this.$emit('imgUrl', src)
+    }
     // 创建编辑器
     editor.create()
-    this.editor = editor
+    // editor.txt.append(this.content)
   },
   methods: {
     getEditorData (newHtml) {
       // 通过代码获取编辑器内容
       // const data = this.editor.txt.html()
       this.$emit('change', newHtml)
-    }
-  },
-  watch: {
-    newcont (newVal, oldVal) {
-      this.$emit('changecont', newVal)
-    },
-    content (n) {
-      this.editor.txt.html(n)
     }
   }
 }

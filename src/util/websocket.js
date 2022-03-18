@@ -5,7 +5,7 @@ class WebSocketClient {
     const defaultConfig = {
       port: 3001,
       url: configurl.wsconfig.url,
-      protocol: 'ws',
+      protocol: configurl.wsProtocol.protocol,
       timeInterval: 30 * 1000
     }
 
@@ -19,7 +19,7 @@ class WebSocketClient {
   }
 
   init () {
-    this.ws = new WebSocket(`${this.protocol}://${this.url}:${this.port}`)
+    this.ws = new WebSocket(`${this.protocol}://${this.url}:${this.port}/wss`)
     this.ws.onopen = () => this.onOpne()
     this.ws.onmessage = (msg) => this.onMessage(msg)
     this.ws.onclose = () => this.onClose()

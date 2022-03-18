@@ -6,28 +6,25 @@
           <ul class="nav-link-ul">
             <li class="nav-link-item">
               <a href="/" class="link" :class="{ nocolor: header1 }">
-                <i class="iconfont icon-shujumofang nolink"></i>主站
+                <img src="/favicon.ico" class="logo">主站
               </a>
             </li>
             <li class="nav-link-item">
               <a
-                href="http://a.toped.top"
+                href="https://manage.toped.top"
                 class="link"
                 :class="{ nocolor: header1 }"
                 >后台管理
               </a>
             </li>
-            <li class="nav-link-item">
+            <!-- <li class="nav-link-item">
               <a href="/" class="link" :class="{ nocolor: header1 }"
                 >游戏中心
               </a>
-            </li>
-            <li class="nav-link-item">
-              <a href="/" class="link" :class="{ nocolor: header1 }">直播 </a>
-            </li>
+            </li> -->
             <li class="nav-link-item">
               <a href="/" class="link" :class="{ nocolor: header1 }"
-                >下载APP
+                >微信小程序
               </a>
             </li>
             <li class="nav-link-item">
@@ -66,10 +63,10 @@
           <div class="user-con">
             <div class="ab">
             <span class="avatar">
-              <a
+              <i
                 v-if="!userInfo.pic"
-                href="#"
-              ></a>
+                class="iconfont icon-1USER iconuser"
+              ></i>
               <img v-else :src="userInfo.pic" @click="tocenter" />
             </span>
               <div class="itemdis">
@@ -90,17 +87,13 @@
                 </div>
               </div>
               </div>
-            <div
-              class="item"
-              v-for="(item, index) in userList"
-              :key="'user' + index"
-            >
-              <div>
-                <div class="item">
-                  <span :class="header1 ? '' : 'name'">{{ item.title }}</span>
-                </div>
+              <div class="item">
+                  <span @click="sign" v-if="!isSign" :class="header1 ? '' : 'name'">签到</span>
+                  <span v-else :class="header1 ? '' : 'name'">已签到</span>
+                  <router-link :to="{name: 'Msg'}"><span :class="header1 ? '' : 'name'">消息</span></router-link>
+                  <router-link :to="{name: 'MyCollection'}"><span :class="header1 ? '' : 'name'">收藏</span></router-link>
+                  <router-link :to="{name: 'Others'}"><span :class="header1 ? '' : 'name'">历史记录</span></router-link>
               </div>
-            </div>
             <div>
               <router-link :to="{ name: 'Add' }">
                 <span
@@ -135,20 +128,15 @@
 </template>
 
 <script>
+import { userSign } from '../../api/user'
 import { mapState } from 'vuex'
 export default {
   name: 'login',
   data () {
     return {
-      userList: [
-        { title: '大会员' },
-        { title: '消息' },
-        { title: '动态' },
-        { title: '收藏' },
-        { title: '历史记录' }
-      ],
       header1: false,
-      searchValue: ''
+      searchValue: '',
+      isSign: this.$store.state.userInfo.isSign ? this.$store.state.userInfo.isSign : false
     }
   },
   methods: {
@@ -162,6 +150,24 @@ export default {
     },
     search () {
       this.$router.push({ path: '/', query: { search: this.searchValue } })
+    },
+    sign () {
+      if (this.isLogin) {
+        userSign().then((res) => {
+          const user = this.$store.state.userInfo
+          if (res.code === 200) {
+            this.isSign = true
+            user.favs = res.favs
+            user.count = res.count
+            user.isSign = true
+            this.$store.commit('setUserInfo', user)
+          } else {
+            this.isSign = false
+          }
+        })
+      } else {
+        this.$alert('请先登陆!')
+      }
     }
   },
   watch: {
@@ -196,6 +202,15 @@ export default {
 </script>
 
 <style scoped>
+.iconuser {
+  font-size: 30px;
+  color: rgb(70 59 56);
+}
+.logo {
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+}
 .iconsize {
   size: 10px;
 }
@@ -220,6 +235,7 @@ export default {
   top: 0px;
   line-height: 33px;
   padding: 10px;
+  z-index: 9999;
 }
 .nocolor {
   color: #000 !important;
@@ -231,7 +247,6 @@ export default {
 .avatar {
   display: inline-block;
   text-align: center;
-  background: #ccc;
   color: #fff;
   white-space: nowrap;
   position: relative;
@@ -409,6 +424,9 @@ export default {
   display: flex;
   margin-left: 12px;
   cursor: pointer;
+}
+.nav-user-center .user-con .item span {
+  margin-left: 12px;
 }
 .nav-user-center .user-con .item .name {
   color: #fff;

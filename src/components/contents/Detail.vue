@@ -30,8 +30,8 @@
             </span>
           </div>
           <div class="detail-about">
-            <a class="fly-avatar" href="">
-              <img :src="lists.uid ? lists.uid.pic : '/img/touxiang.jpeg'" alt="">
+            <a class="fly-avatar" @click="touser(lists.uid._id)">
+              <img  :src="lists.uid ? lists.uid.pic : '/img/touxiang.jpeg'" alt="">
             </a>
             <div class="fly-detail-user">
               <a href="" class="fly-link">
@@ -43,7 +43,7 @@
             </div>
             <div class="detail-hits">
               <!-- style="padding-right: 10px; color: #FF7200" v-if="lists.catalog === ask">悬赏：{{page.fav}}飞吻</!-->
-              <span class="layui-btn layui-btn-xs layui-btn-radius jie-admin" type="edit" v-show="lists.uid ? lists.uid._id === user._id && lists.isEnd !== '1' : false"><a @click="router(lists._id, lists)">编辑此贴</a></span>
+              <span class="layui-btn layui-btn-xs layui-btn-radius jie-admin" type="edit" v-show="lists.uid ? lists.uid._id === user._id && lists.isEnd !== '1' : false"><a @click="toEdit">编辑此贴</a></span>
               <span class="layui-btn layui-btn-xs layui-btn-radius jie-admin" @click="setCollect" type="edit" >{{lists.isCollect === true ? '取消收藏' : '收藏'}}</span>
             </div>
           </div>
@@ -68,7 +68,7 @@
             <ul class="jieda" id="jieda">
               <li class="jieda-daan" v-for="(item,index) in comments" :key="'comments' + index">
                 <div class="detail-about detail-about-reply">
-                  <a class="fly-avatar" href="">
+                  <a  @click="touser(item.cuid._id)" class="fly-avatar">
                     <img :src="item.cuid ? item.cuid.pic : '/img/touxiang.jpeg'">
                   </a>
                   <div class="fly-detail-cuid">
@@ -238,9 +238,6 @@ export default {
       scrollToElem('.reply', 500, -110)
       document.getElementById('demo1').focus()
     },
-    router (tid, post) {
-      this.$router.push({ name: 'Edit', params: { tid, post } })
-    },
     setCollect () {
       if (!this.$store.state.isLogin) {
         this.$alert('请登录')
@@ -284,6 +281,13 @@ export default {
           }
         })
       }
+    },
+    touser (id) {
+      this.$router.push({ path: '/user', query: { _id: id } })
+    },
+    toEdit () {
+      localStorage.setItem('editData', JSON.stringify(this.lists))
+      this.$router.push({ name: 'Edit' })
     }
   },
   computed: {

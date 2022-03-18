@@ -92,11 +92,6 @@ const routes = [
     component: () => import('../views/Center.vue'),
     children: [
       {
-        path: '',
-        name: 'center',
-        component: () => import('../components/user/Center.vue')
-      },
-      {
         path: '/msg',
         name: 'Msg',
         component: () => import('../components/user/Msg.vue')
@@ -118,7 +113,7 @@ const routes = [
         ]
       },
       {
-        path: '/settings',
+        path: '',
         component: () => import('../components/user/Settings.vue'),
         children: [
           {

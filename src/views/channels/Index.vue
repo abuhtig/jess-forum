@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="flex">
     <div class="layui-container">
       <div class="layui-row layui-col-space15">
           <top></top>
           <list></list>
       </div>
-      <div class="storey-box">
+      <div class="storey">
         <sidebar></sidebar>
       </div>
     </div>

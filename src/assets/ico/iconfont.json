@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1270489",
+      "name": "user",
+      "font_class": "1USER",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "77156",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
       "icon_id": "2857593",
       "name": "登录",
       "font_class": "denglu",
@@ -83,13 +97,6 @@
       "unicode_decimal": 58911
     },
     {
-      "icon_id": "18165160",
-      "name": "天平,公平,天平秤",
-      "font_class": "balance-full",
-      "unicode": "e87a",
-      "unicode_decimal": 59514
-    },
-    {
       "icon_id": "20406884",
       "name": "小程序",
       "font_class": "xiaochengxu",
@@ -109,13 +116,6 @@
       "font_class": "bug",
       "unicode": "e748",
       "unicode_decimal": 59208
-    },
-    {
-      "icon_id": "2784",
-      "name": "数据魔方",
-      "font_class": "shujumofang",
-      "unicode": "e600",
-      "unicode_decimal": 58880
     },
     {
       "icon_id": "13106274",

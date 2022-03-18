@@ -23,4 +23,6 @@ const getCollectionList = (data) => axios.get('/user/getColleList?' + qs.stringi
 
 const getMsg = (data) => axios.get('/user/getmsg?' + qs.stringify(data))
 
-export { userSign, updateUserInfo, updateUsername, setPass, changepw, addCollect, getCollect, getPostList, deletePost, getCollectionList, getMsg }
+const getInfo = (id) => axios.get('/public/getInfos?' + qs.stringify(id))
+
+export { userSign, updateUserInfo, updateUsername, setPass, changepw, addCollect, getCollect, getPostList, deletePost, getCollectionList, getMsg, getInfo }

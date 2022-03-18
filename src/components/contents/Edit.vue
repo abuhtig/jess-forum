@@ -27,7 +27,7 @@
                           </div>
                       </div>
                   </div>
-                  <div class="layui-col-md4" v-if="post.catalog === '提问'">
+                  <div class="layui-col-md4" v-if="post && post.catalog === 'ask'">
                     <label class="layui-form-label">悬赏飞吻</label>
                     <div class="layui-input-block">
                         <div class="layui-select-title">
@@ -60,15 +60,15 @@ export default {
   },
   data () {
     return {
-      catalogs: '',
       content: '',
       tid: '',
-      post: ''
+      post: '',
+      content1: ''
     }
   },
   methods: {
     add (val) {
-      this.content = val
+      this.content1 = val
     },
     async submit () {
       if (this.content === '') {
@@ -76,12 +76,10 @@ export default {
       }
       editPost({
         tid: this.tid,
-        content: this.content,
+        content: this.content1,
         title: this.post.title
       }).then((res) => {
         if (res === 200) {
-          localStorage.setItem('editData', '')
-          console.log('object')
           this.$router.push({ path: `/detail/${this.tid}` })
           this.$alert('修改成功!')
         } else {
@@ -91,25 +89,16 @@ export default {
     }
   },
   mounted () {
-    this.tid = this.$route.params.tid
-    this.post = this.$route.params.post
-    if (this.post) {
-      this.content = this.post.content
-      localStorage.setItem('editData', JSON.stringify(this.post))
-    } else {
-      const saveData = localStorage.getItem('editData')
-      if (saveData && saveData !== '') {
-        this.$confirm('是否加载未编辑完的内容?', () => {
-          const obj = JSON.parse(saveData)
-          this.post = obj
-          this.tid = this.post._id
-          this.content = this.post.content
-        }, () => {
-          localStorage.setItem('editData', '')
-          this.$router.push({ path: `/detail/${this.tid}` })
-        })
-      }
+    const data = localStorage.getItem('editData')
+    if (data) {
+      const saveData = JSON.parse(data)
+      this.tid = saveData._id
+      this.post = saveData
+      this.content = saveData.content
     }
+  },
+  beforeDestroy () {
+    localStorage.setItem('editData', '')
   }
 }
 </script>

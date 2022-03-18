@@ -38,9 +38,14 @@
       </div>
       <div class="layui-form-item layui-form-text">
         <label for="L_sign" class="layui-form-label">签名</label>
+        <validation-provider rules="max:20" v-slot="{ errors }">
         <div class="layui-input-block">
-          <textarea placeholder="随便写些什么刷下存在感" class="layui-textarea" style="height: 80px;"  v-model="regmark"></textarea>
+          <textarea  name="regmark" placeholder="随便写些什么刷下存在感" class="layui-textarea" style="height: 80px;"  v-model="regmark"></textarea>
         </div>
+        <div class="layui-form-mid">
+          <span style="color: #c00">{{ errors[0] }}</span>
+        </div>
+        </validation-provider>
       </div>
       <div class="layui-form-item">
         <button class="layui-btn" @click="validate().then(submit)" lay-submit>确认修改</button>

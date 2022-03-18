@@ -1,74 +1,32 @@
 <template>
   <div class="bgm">
     <div class="primary-menu-itnl">
-      <div class="page-tab">
-        <ul class="con">
-          <li>
-            <a href="/"><div class="round">
-            <i class="iconfont icon-zhuye"></i>
-            <span>首页</span></div>
-            </a>
-          </li>
-          <li>
-            <a href="http://a.toped.top"><div class="round">
-            <i class="iconfont icon-yunyingguanli"></i>
-            <span>管理</span></div>
-            </a>
-          </li>
-          <li>
-            <a href="/"><div class="round">
-            <i class="iconfont icon-xiaochengxu"></i>
-            <span>程序</span></div>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <span class="tab-line"></span>
       <div class="channel-menu-itnl">
-        <span>
-          <div class="item">
-            <a @click="searchTag(item.name)" class="name" v-for="(item, index) in labels" :key="'labels' + index">
-              <span>{{item.name}}</span>
-            </a>
-          </div>
-        </span>
-      </div>
-      <span class="tab-line"></span>
-      <div class="page-tab">
-        <ul class="con">
-          <li>
-            <a href="/"><div class="round">
-            <i class="iconfont icon-balance-full"></i>
-            <span>小黑屋</span></div>
-            </a>
-          </li>
-          <li>
-            <a  @click="searchTag('视频')"><div class="round">
-            <i class="iconfont icon-shipinbofang"></i>
-            <span>视频</span></div>
-            </a>
-          </li>
-          <li>
-            <a @click="searchTag('音乐')"><div class="round">
-            <i class="iconfont icon-vynil"></i>
-            <span>音乐</span></div>
-            </a>
-          </li>
-        </ul>
+        <div class="item">
+          <a @click="searchTag(item.name)" class="name" v-for="(item, index) in labels" :key="'labels' + index">
+            <span>{{item.name}}</span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="space-between">
       <div class="focus-carousel">
-        <div :style="{'top':calleft + 'px'}" @mouseover="stopmove()" class="van-slide" style="width: 550px; height: 242px;">
+        <div :style="{'left':calleft + 'px'}" @mouseover="stopmove()" class="van-slide" style="width: 550px; height: 242px;">
           <div v-for="(imgUrl, index) in bannerList" :key="index">
-              <img :src="imgUrl" class="img">
+              <img @click="router(imgUrl.tid)" :src="baseUrl + imgUrl.link" class="img">
+              <p class="title">{{imgUrl.title}}</p>
           </div>
         </div>
       </div>
       <div class="ltmp">
-        <sign></sign>
+        <div class="itmptit">
+          <img style="width:18px;padding-right: 5px;" draggable="false" src="img/hot.png">本周热帖
+        </div>
         <div class="content">
-          <dd v-for="(item, index) in lists" :key="'week' + index">
+          <dd v-for="(item, index) in topLists" :key="'top' + index">
+            <a @click="router(item._id)">{{item.title}}</a>
+          </dd>
+          <dd v-for="(item, index) in weekLists" :key="'week' + index">
             <a @click="router(item._id)">{{item.title}}</a>
           </dd>
         </div>
@@ -78,33 +36,42 @@
 </template>
 
 <script>
-import { getTopList, getLabels } from '../../../api/concent'
-import sign from '../sidebar/Sign.vue'
+import base from '../../../config/index'
+import { getTop, getLabels, getAdvert, getTopList } from '../../../api/concent'
 export default {
   name: 'top',
-  components: {
-    sign
-  },
   data () {
     return {
-      lists: [],
+      weekLists: [],
+      topLists: [],
       labels: [],
       calleft: 0,
       timer: {},
       mark: 0,
-      bannerList: ['/img/2.jpg', '/img/3.jpg', '/img/4.jpg']
+      baseUrl: base.baseUrl,
+      bannerList: []
     }
   },
   methods: {
     async getList () {
       await getTopList().then((res) => {
         if (res.code === 200) {
-          this.lists = res.data
+          this.topLists = res.data
+        }
+      })
+      await getTop().then((res) => {
+        if (res.code === 200) {
+          this.weekLists = res.data
         }
       })
       await getLabels().then((res) => {
         if (res.code === 200) {
           this.labels = res.data
+        }
+      })
+      await getAdvert().then((res) => {
+        if (res.code === 200) {
+          this.bannerList = res.data
         }
       })
     },
@@ -116,12 +83,15 @@ export default {
       setTimeout((this.move()), 3000)
     },
     starmove () {
-      this.calleft -= 242
-      if (this.calleft < (this.bannerList.length - 1) * -360) {
+      this.calleft -= 550
+      if (this.calleft < (this.bannerList.length - 1) * -550) {
         this.calleft = 0
       }
     },
     router (tid) {
+      if (!tid) {
+        return
+      }
       this.$router.push({ name: 'Detail', params: { tid } })
     },
     searchTag (tag) {
@@ -133,85 +103,73 @@ export default {
     this.move()
   },
   computed: {
-    items () {
-      this.lists.map((item) => {
-        switch (item.catalog) {
-          case 'ask':
-            item.catalog = '提问'
-            break
-          case 'share':
-            item.catalog = '分享'
-            break
-          case 'logs':
-            item.catalog = '动态'
-            break
-          case 'notice':
-            item.catalog = '公告'
-            break
-          case 'advise':
-            item.catalog = '建议'
-            break
-          case 'special':
-            item.catalog = '专栏'
-            break
-        }
-      })
-      return this.lists
-    }
   }
 }
 </script>
 
 <style scoped>
 .content {
+  color: #222226;
+  margin-top: 6px;
+  font-size: 15px;
+  line-height: 32px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  text-align: center;
+}
+.title {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 70%;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 14px;
-  line-height: 14px;
 }
-img {
-  width:100%;
-  height:100%;
-}
+
 .page-tab {
   margin: 0 10px;
 }
 .channel-menu-itnl .item .name span {
-  float: left;
-  margin: 0 6px 4px 0;
-  background: #F6F7F8;
-  border-radius: 100px;
-  padding: 0 6px;
-  position: relative;
-  height: 22px;
-  line-height: 22px;
-  transition: all 0.3s;
   font-size: 16px;
-  border: 1px solid transparent;
+  line-height: 16px;
 }
 .channel-menu-itnl .item .name {
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
+    margin-right: 31px;
+    margin-bottom: 16px;
+    height: 24px;
 }
 .channel-menu-itnl .item {
-    position: relative;
-    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    height: 34px;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    justify-content: center;
+    position: relative;
+    padding: 0 24px;
+    top: 0;
+    background-color: #fff;
 }
 .channel-menu-itnl {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: 5rem;
-    height: 68px;
-    flex: 1;
-    justify-content: center;
+    width: 100%;
+    padding: 24px 0 0;
+    background: #fff;
     overflow: hidden;
-    word-wrap: break-word;
-    word-break: normal;
+    max-height: 40px;
+    position: relative;
+    z-index: 9999;
+}
+.channel-menu-itnl:hover {
+  overflow:unset;
 }
 .con li i {
   font-size: 30px;
@@ -244,7 +202,7 @@ img {
 .space-between {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
 }
 .focus-carousel {
     position: relative;
@@ -254,25 +212,27 @@ img {
     border-radius: 2px;
 }
 .van-slide {
-  width: 100%;
-  height: 100%;
-  z-index: 1;
   position: relative;
   transition-duration: 0.75s;
+  display: flex;
+  flex-wrap: nowrap;
 }
 .van-slide>div {
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  z-index: 0;
 }
-
+.img {
+  width: 550px;
+  height: 120%;
+}
 .ltmp {
   position: relative;
   width: 570px;
   overflow: hidden;
+}
+.itmptit {
+  font-size: 18px;
+  text-align: center;
 }
 </style>

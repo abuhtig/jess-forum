@@ -30,6 +30,7 @@ localize('zh_CN', {
     username: '账号',
     repass: '确认密码',
     oldpwd: '旧密码',
-    title: '标题'
+    title: '标题',
+    regmark: '签名'
   }
 })

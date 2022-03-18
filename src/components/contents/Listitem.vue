@@ -7,7 +7,7 @@
             <div class="list-item-meta">
               <div class="list-item-meta-avatar">
                 <span class="avatar">
-                  <a href="javascript:;" @click="router(item._id)">
+                  <a href="javascript:;" @click="router(item.uid._id)">
                     <img :src="item.uid ? item.uid.pic : '/img/touxiang.jpeg'" alt="头像">
                   </a>
                 </span>
@@ -20,6 +20,7 @@
             {{replace(item.content)}}
             </div>
             <div class="lableList">
+            <div>{{item.uid.name}}</div>
             <div class="font">
                 <i class="iconfont icon-ai45"></i>1
                 <i class="iconfont icon-pinglun"></i>{{item.answer}}
@@ -30,8 +31,8 @@
               </div>
             </div>
           </div>
-          <div class="list-item-extra">
-            <img :src="imgsrc(item.content)" alt="" style="width: 205px;">
+          <div v-if="item.pic" class="list-item-extra">
+            <img :src="baseUrl + item.pic" alt="" style="max-height: 132px;">
           </div>
           <!-- <h2>
             <a class="layui-badge">{{item.catalog}}</a>
@@ -66,10 +67,12 @@
 </template>
 
 <script>
+import config from '../../../config/index'
 export default {
   name: 'listitem',
   data () {
     return {
+      baseUrl: config.baseUrl
     }
   },
   props: {
@@ -110,6 +113,9 @@ export default {
       } else {
         return ''
       }
+    },
+    router (id) {
+      this.$router.push({ path: '/user', query: { _id: id } })
     }
   }
 }
@@ -117,6 +123,7 @@ export default {
 
 <style scoped>
 .font {
+  padding-left: 5px;
   color: #99a2aa;
 }
 .font i {

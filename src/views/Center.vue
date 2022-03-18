@@ -26,11 +26,6 @@ export default {
           link: 'User'
         },
         {
-          name: '个人中心',
-          icon: 'icon-geren',
-          link: 'center'
-        },
-        {
           name: '基本设置',
           icon: 'icon-set',
           link: 'Myinfo',
@@ -48,7 +43,7 @@ export default {
           link: 'Msg'
         },
         {
-          name: '其他设置',
+          name: '历史记录',
           icon: 'icon-qita',
           link: 'Others'
         }

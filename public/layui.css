@@ -311,7 +311,6 @@ a cite{font-style: normal; *cursor:pointer;}
 
 /* 小型屏幕(平板) */
 @media screen and (min-width: 768px) {
-  .layui-container{width: 750px;}
   .layui-hide-sm{display: none!important;}
   .layui-show-sm-block{display: block!important;}
   .layui-show-sm-inline{display: inline!important;}
@@ -346,7 +345,6 @@ a cite{font-style: normal; *cursor:pointer;}
 }
 /* 中型屏幕(桌面) */
 @media screen and (min-width: 992px) {
-  .layui-container{width: 970px;}
   .layui-hide-md{display: none!important;}
   .layui-show-md-block{display: block!important;}
   .layui-show-md-inline{display: inline!important;}
