@@ -54,9 +54,9 @@ const getDetail = (tid) => {
   }
   return axios.get('/public/content/detail?tid=' + tid, headers)
 }
-const editPost = (Data) => {
-  return axios.post('/content/editPost', Data)
-}
+// const editPost = (Data) => {
+//   return axios.post('/content/editPost', Data)
+// }
 
 const getAdvert = () => {
   return axios.get('/public/getAdvert')
@@ -67,6 +67,10 @@ const getHistory = (data) => {
 }
 const deleteHistory = (data) => {
   return axios.get('/content/deleteHistory?' + qs.stringify(data))
+}
+
+const getDefault = () => {
+  return axios.get('/public/searchDefault')
 }
 export {
   getList,
@@ -79,10 +83,10 @@ export {
   addPost,
   uploadWangImg,
   getDetail,
-  editPost,
   editpost,
   deletePost,
   getAdvert,
   getHistory,
-  deleteHistory
+  deleteHistory,
+  getDefault
 }

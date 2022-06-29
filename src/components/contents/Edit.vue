@@ -52,7 +52,7 @@
 
 <script>
 import Editor from '../modules/editor'
-import { editPost } from '../../../api/concent'
+import { editpost } from '../../../api/concent'
 export default {
   name: 'edit',
   components: {
@@ -74,7 +74,7 @@ export default {
       if (this.content === '') {
         this.$alert('正文不能为空!')
       }
-      editPost({
+      editpost({
         tid: this.tid,
         content: this.content1,
         title: this.post.title

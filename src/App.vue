@@ -19,6 +19,9 @@ export default {
 </script>
 
 <style lang="scss">
+#app {
+  min-width:999px;
+}
 @import "assets/css/global.css";
 @import "assets/ico/iconfont.css";
 </style>

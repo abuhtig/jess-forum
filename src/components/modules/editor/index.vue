@@ -44,6 +44,9 @@ export default {
     editor.config.linkImgCallback = (src, alt, href) => {
       this.$emit('imgUrl', src)
     }
+    editor.config.excludeMenus = [
+      'video'
+    ]
     // 创建编辑器
     editor.create()
     // editor.txt.append(this.content)

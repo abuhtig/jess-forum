@@ -139,22 +139,32 @@ export default {
   },
   data () {
     return {
-      tid: '',
       total: 0,
       current: 0,
       lists: {},
       comments: [],
       content: '',
-      israte: '1'
+      israte: '1',
+      tid: ''
     }
   },
   mounted () {
-    this.tid = this.$route.params.tid
-    this.getPostDetail()
-    this.getCommentsList()
-    scrollTo(0, 0)
+    this.init()
+  },
+  watch: {
+    $route (to, from) {
+      if (to.params.tid !== this.tid || from.params.tid !== this.tid) {
+        this.init()
+      }
+    }
   },
   methods: {
+    init () {
+      this.tid = this.$route.params.tid
+      this.getPostDetail()
+      this.getCommentsList()
+      scrollTo(0, 0)
+    },
     async submit () {
       if (!this.$store.state.isLogin) {
         this.$alert('请登录')

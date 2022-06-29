@@ -44,7 +44,7 @@
                 accesskey="s"
                 x-webkit-speech=""
                 x-webkit-grammar="builtin:translate"
-                placeholder="我寻你千百度,又一岁荣枯！"
+                :placeholder="defaultText"
                 type="text"
                 v-model="searchValue"
                 class="nav-search-keyword"
@@ -109,7 +109,7 @@
         </div>
       </div>
     </div>
-    <div :class="header1 ? 'disnone' : 'bili-banner'">
+    <div v-if="!header1" :class="header1 ? 'disnone' : 'bili-banner'">
       <div class="animated-banner">
         <div class="layer">
           <img
@@ -129,17 +129,28 @@
 
 <script>
 import { userSign } from '../../api/user'
+import { getDefault } from '../../api/concent'
 import { mapState } from 'vuex'
 export default {
   name: 'login',
   data () {
     return {
-      header1: false,
+      header1: true,
       searchValue: '',
-      isSign: this.$store.state.userInfo.isSign ? this.$store.state.userInfo.isSign : false
+      isSign: this.$store.state.userInfo.isSign ? this.$store.state.userInfo.isSign : false,
+      defaultText: '搜索',
+      postId: ''
     }
   },
   methods: {
+    _getDefault () {
+      getDefault().then((res) => {
+        if (res.code === 200) {
+          this.defaultText = res.data.title
+          this.postId = res.data._id
+        }
+      })
+    },
     tocenter () {
       this.$router.push('/center')
     },
@@ -149,7 +160,11 @@ export default {
       this.$router.push('/', () => {})
     },
     search () {
-      this.$router.push({ path: '/', query: { search: this.searchValue } })
+      if (this.searchValue && this.searchValue !== '') {
+        this.$router.replace({ path: '/', query: { search: this.searchValue } })
+      } else {
+        this.$router.push({ name: 'Detail', params: { tid: this.postId } })
+      }
     },
     sign () {
       if (this.isLogin) {
@@ -197,6 +212,7 @@ export default {
     }
   },
   mounted () {
+    this._getDefault()
   }
 }
 </script>
